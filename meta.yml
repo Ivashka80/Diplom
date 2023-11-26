@@ -1,9 +1,0 @@
-#cloud-config
-users:
-- name: chistov
-  groups: sudo
-  shell: /bin/bash
-  sudo: ['ALL=(ALL) NOPASSWD:ALL']
-  ssh-authorized-keys:
-    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/dbWLdP9y1nkRvFfcMjZdsuQAPMVaq5/Y8+TzYJWkexrfwauAMMdmnUVK1YHfbCe+PK2ATCkHM8dbrfokQjNyajP+oIggM2YuhVN/6KVwl7ZgkdcOaQQBAobR1cIg0zPSUbU4Kn/GX2YVYrp9b4MmD5aJ1rkNQW9K5kREPNHaLTBSPUtAHuPmyeEgZNKik2R56Qr30baa4SYNqYBNis35h/O5Kb+/nzYoFLOUYBbHexC8wiarJhjP5uixYPzNjMVucU79VkGM38qLMJt1IteiS7Cc48zsHfxt6piYXCQ/QiWYjSZc3tP31mbuV91LobOuscEXrclmqxSpuk0dH9xGKECQnuAmPrm3jK9tNaLotFW/F86SV5Cmb+Kt6l/5Z0HT2DkHHGAWxqBZgaI6ZMebszh5ImCc8GFWDRFSIinxio8IlmJCxZNnj+6BtrKJiQQG7/PEVgDMrQY+YdbuZSwdp/p7KsldO2Ws6ehUiLAg2b208TaJUTOs9stf4do+IRE= chistov@VB
-
