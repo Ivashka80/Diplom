@@ -230,6 +230,7 @@ users:
 Содержимое файла main.tf
 
 <details>
+   
 ```
 # ----- Провайдер -----
  terraform {
