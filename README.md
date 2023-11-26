@@ -228,6 +228,8 @@ users:
 ![image](https://github.com/Ivashka80/Diplom/assets/121082757/ff1cc1b7-64a6-4349-b8bf-ada88d988b80)
 
 Содержимое файла main.tf
+
+<details>
 ```
 # ----- Провайдер -----
  terraform {
@@ -611,6 +613,7 @@ resource "yandex_compute_instance" "kibana" {
 }
 
 ```
+</details>
 
 
 
