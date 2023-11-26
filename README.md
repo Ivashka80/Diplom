@@ -114,13 +114,14 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 К сожалению, у меня не хватило знаний и умений в некоторых пунктах:
 
-* Так я не смог понять, как назначить Груупы безопасности через Terraform, чтобы к машинам для управления можно подключаться через Bastion. Потому в файле `main.tf` я создал Группы безопасности со всеми разрешениями, а редактировал их уже после всех настроек через консоль личного кабинета Яндекс. Облоко.
+* Так я не смог понять, как назначить Груупы безопасности через Terraform, чтобы к машинам для управления можно подключаться через Bastion. Потому в файле `main.tf` я создал Группы безопасности со всеми разрешениями, а редактировал их уже после всех настроек через Консоль управления личного кабинета Яндекс. Облоко.
 * Не удалось найти решения установки Zabbix-server через Ansible, т.к. там помимо Zabbix надо создавать базу данных и пользователя в ней. Потому я подключился к Zabbix-server через SSH и сделал всё вручную по инструкции со страницы Zabbix. С установкой и настройкой Zabbix-agent вопрос не появилось и установил через Ansible.
 * Сам Zabbix-server тоже пока для меня не совсем понятен, потому для агентов я настроил метрики, которые мне показались правильными, исходя из задания.
+* Резервное копирование также настроил через Консоль управления.
 
 Теперь сам порядок выполнения работ для поднятия инфраструктуры.
 -----
-Все виртуальные машины (ВМ) поднимаю с помощью Terraform. Помимо ВМ файле main.tf заданы установки для сети, подсетей, группы безопасности, бвлвнсировщик и т.п.
+1. Все виртуальные машины (ВМ) поднимаю с помощью Terraform. Помимо ВМ файле main.tf заданы установки для сети, подсетей, группы безопасности, бвлвнсировщик и т.п.
 
 Все ВМ поднялись, работает Балансировшщик, настроен Роутер и Целевая группа.
 
@@ -581,10 +582,325 @@ resource "yandex_compute_instance" "kibana" {
  
 </details>
 
+2. Начинаю работать с файлами `playbook`.
+
+*Содержимое файла `ansible.cnf`*
+
+<details>
+
+   ```
+[defaults]
+inventory      = /home/chistov/diplom/hosts
+forks          = 10
+host_key_checking = False
+remote_user = chistov
+private_key_file = /home/chistov/.ssh/id_rsa
+deprecation_warnings = False
+   ```
+</details>
+
+*Содержимое файла `hosts` (адреса введены после поднятия машин). Все машины отвечают пингом через Ansible*
+
+СКРИНШОТ АНСИБЛЕ, УДАЛИТЬ СТРОКУ
+
+<details>
+   
+</details>
 
 
+<details>
 
-Начинаю работать с файлами `playbook`.
+   ```
+[bastion]
+bastion ansible_host=158.160.99.198
 
+[nginx]
+nginx-1 ansible_host=158.160.100.82
+nginx-2 ansible_host=158.160.82.234
 
+[zabbixserver]
+zabbixserver ansible_host=158.160.123.174
 
+[elastic]
+elasticsearch ansible_host=62.84.126.151
+
+[kibana]
+kibana ansible_host=158.160.108.67
+
+[filebeat]
+nginx-1 ansible_host=158.160.100.82
+nginx-2 ansible_host=158.160.82.234
+
+[all:vars]
+ansible_ssh_user=chistov
+ansible_ssh_private_key_file=/home/chistov/.ssh/id_rsa
+   ```
+</details>
+
+- устанавливаю nginx на соответствующие ВМ
+
+*Содержимое файла `playbook-nginx.yml`*
+
+<details>
+
+   ```
+---
+- name: Test connection
+  hosts: nginx
+  become: yes
+
+  tasks:
+
+  - name: Update apt
+    apt:
+      update_cache: yes
+
+  - name: Install nginx
+    apt: name=nginx state=latest
+
+  - name: Change main page
+    ansible.builtin.copy:
+      src: /home/chistov/diplom/index.nginx-debian.html
+      dest: /var/www/html/index.nginx-debian.html
+      owner: chistov
+      group: chistov
+      mode: '0644'
+   ```
+</details>
+
+*Работа Балансировщика по адресу `curl -v <публичный IP балансера>:80`. Так же сам сайт по адресу Балансировщика в браузере (адрес_сайта)*
+
+СКРИШОТ ЗАПРОСА БАЛАНСИРОВЩИКА
+
+<details>
+
+</details>
+
+На эти же ВМ следом ставлю Zabbix-agent и Filebeat с заменой файлов конфигурации.
+
+*Содержимое файла `playbook-zabbix-agent.yml`*
+
+<details>
+
+   ```
+---
+- name: Install Zabbix-agent
+  hosts: nginx
+  become: yes
+
+  tasks:
+  - name: Get zabbix-agent
+    ansible.builtin.get_url:
+      url: https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4+ubuntu20.04_all.deb
+      dest: /home/chistov/
+
+  - name: Install repo zabbix-agent
+    apt:
+      deb: /home/chistov/zabbix-release_6.0-4+ubuntu20.04_all.deb
+
+  - name: Update cash
+    apt:
+      update_cache: yes
+
+  - name: install zabbix-agent
+    apt:
+      name: zabbix-agent
+      state: latest
+
+  - name: stop zabbix-agent
+    service:
+      name: zabbix-agent.service
+      state: stopped
+
+  - name: Copy conf-file
+    copy:
+      src: /home/chistov/diplom/zabbix_agentd.conf
+      dest: /etc/zabbix/zabbix_agentd.conf
+      mode: 0644
+      owner: root
+      group: root
+
+  - name: Start zabbix-agent
+    service:
+      name: zabbix-agent.service
+      state: started
+   ```
+</details>
+
+*Содержимое файла `playbook-filebeat.yml`*
+
+<details>
+
+   ```
+---
+- name: Install Filebeat
+  hosts: nginx
+  become: yes
+
+  tasks:
+  - name: Get Filebeat
+    ansible.builtin.get_url:
+      url: https://mirror.yandex.ru/mirrors/elastic/7/pool/main/f/filebeat/filebeat-7.17.9-amd64.deb
+      dest: /home/chistov/
+
+  - name: Install Filebeat
+    apt:
+      deb: /home/chistov/filebeat-7.17.9-amd64.deb
+
+  - name: Systemctl daemon reload
+    systemd:
+      daemon_reload: true
+      name: filebeat.service
+      state: started
+
+  - name: Copy conf-file
+    copy:
+      src: /home/chistov/diplom/filebeat.yml
+      dest: /etc/filebeat/filebeat.yml
+      mode: 0644
+      owner: root
+      group: root
+
+  - name: Restart Filebeat
+    systemd:
+      name: filebeat.service
+      state: restarted
+   ```
+</details>
+
+- Установка Zabbix-server по инструкции сайта Zabbix и последущая его настройка.
+
+*Скришоты работы Zabbix*
+
+<details>
+
+   
+</details>
+
+- Установка Elasticsearch с заменой файла конфигурации
+
+*Содержимое файла `elasticsearch.yml`*
+
+<details>
+
+   ```
+---
+- name: Install elastic
+  hosts: elastic
+  become: yes
+
+  tasks:
+  - name: Update apt
+    apt:
+      update_cache: yes
+
+  - name: Install java
+    apt: name=openjdk-11-jdk state=latest
+
+  - name: Get elastic
+    ansible.builtin.get_url:
+      url: https://mirror.yandex.ru/mirrors/elastic/7/pool/main/e/elasticsearch/elasticsearch-7.17.9-amd64.deb
+      dest: /home/chistov/
+
+  - name: Install elastic
+    apt:
+      deb: /home/chistov/elasticsearch-7.17.9-amd64.deb
+
+  - name: Systemctl daemon reload
+    systemd:
+      daemon_reload: true
+      name: elasticsearch.service
+      state: started
+
+  - name: Copy conf-file
+    copy:
+      src: /home/chistov/diplom/elasticsearch.yml
+      dest: /etc/elasticsearch/elasticsearch.yml
+      mode: 0644
+      owner: root
+      group: elasticsearch
+
+  - name: Restart elastic
+    systemd:
+      name: elasticsearch.service
+      state: restarted
+   ```
+</details>
+
+С помощью Ansible можно проверить работу Elasticserch, а также запросом `curl 'АДРЕС_БАЛАНСИРОВЩИКА:9200/_cluster/health?pretty`.
+
+ЗДЕСЬ СКРИШОТ ЗАПРОСА.
+
+<details>
+
+</details>
+
+- Установка Kibana
+
+*Содержимое файла `playbook-kibana.yml` с заменой файла конфигурации*
+
+<details>
+
+   ```
+---
+- name: Install Kibana
+  hosts: kibana
+  become: yes
+
+  tasks:
+  - name: Get Kibana
+    ansible.builtin.get_url:
+      url: https://mirror.yandex.ru/mirrors/elastic/7/pool/main/k/kibana/kibana-7.17.9-amd64.deb
+      dest: /home/chistov/
+
+  - name: Install Kibana
+    apt:
+      deb: /home/chistov/kibana-7.17.9-amd64.deb
+
+  - name: Systemctl daemon reload
+    systemd:
+      daemon_reload: true
+      name: kibana.service
+      state: started
+
+  - name: Copy conf-file
+    copy:
+      src: /home/chistov/diplom/kibana.yml
+      dest: /etc/kibana/kibana.yml
+      mode: 0644
+      owner: root
+      group: kibana
+
+  - name: Restart Kibana
+    systemd:
+      name: kibana.service
+      state: restarted
+   ```
+</details>
+
+Так как Filebeat ужк установлен на ВМ с nginx, начинаем получать уже информацию.
+
+СКРИШОТЫ РАБОТЫ KIBANA
+
+<details>
+
+</details>
+
+3. После всех ранее сделанных операций через Консоль управления в браузере меняю настройки Групп безопасности.
+
+СКРИНШОТЫ ГРУПП БЕЗОПАСНОСТИ.
+
+<details>
+
+</details>
+
+4. Настраиваю так же через Консоль резервное копирование.
+
+СКРИНШОТЫ РЕЗЕРВНОГО КОПИРОВАНИЯ.
+
+<details>
+
+</details>
+
+-----
+На этом всё.
