@@ -217,9 +217,9 @@ users:
    
 </details>
 
-После чего произведено подключение к Bastion `ssh 158.160.105.78` и были установлены Ansible, Terraform и коносль Яндекса `yc`. Заранее подготовленные файлы playbook и terraform были скопированы через SSH: `scp /home/chistov/diplom/* chistov@158.160.105.78:/home/chistov/diplom/`.
+После чего произведено подключение к Bastion `ssh 158.160.119.145` и были установлены Ansible, Terraform и коносль Яндекса `yc`. Заранее подготовленные файлы playbook и terraform были скопированы через SSH: `scp /home/chistov/diplom/* chistov@158.160.119.145:/home/chistov/diplom/`.
 
-Так как сеть и подсети были уже созданы, в файле main.tf достаточно только указать ID подсетей. Id можно узнать командой `yc vpc subnet list`.
+Так как сеть и подсети были уже созданы, в файле main.tf достаточно только указать ID подсетей. ID можно узнать командой `yc vpc subnet list`.
 
 
 
