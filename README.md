@@ -125,7 +125,6 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ----
 2. Поднимаю оставшиеся ВМ. Ко всем есть подключение через Bastion. С ними же поднялись Балансировщик, оставшиеся Группы безопасности и Роутер.
-----
 
 <details>
 
@@ -142,3 +141,21 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ![image](https://github.com/Ivashka80/Diplom/assets/121082757/c90fdb05-bca7-4701-ba21-d3e4afc47ec8)
 
 </details>
+
+----
+3. Установка nginx на соответствующие машины через ansible-playbook.
+
+<details>
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/0b189170-fa79-41f2-aa04-7a931c967c67)
+
+</details>
+
+Делаю запрос к Балансировщику `curl -v <публичный IP балансера>:80`. Сайт также доступен по адресу Балансировщика http://158.160.132.191/.
+
+<details>
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/5a34d0c5-0a83-4625-b143-3ac8c81c9e80)
+
+</details>
+
