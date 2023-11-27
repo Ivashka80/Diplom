@@ -217,4 +217,50 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ----
 
+8. Создаю и поднимаю отдельно планировщик резервного копирования.
+
+<details>
+   
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/5e5a8d5a-6027-4383-8923-ff3264c97dd1)
+
+</details>
+
+----
+9. Редактирую группы безопасности для всех ВМ.
+
+*Bastion*
+
+<details>
+   
+
+</details>
+
+*Nginx*
+
+<details>
+   
+
+</details>
+
+*Zabbix*
+
+<details>
+   
+
+</details>
+
+*Elasticsearch*
+
+<details>
+   
+
+</details>
+
+*Kibana*
+
+<details>
+   
+
+</details>
+
 
