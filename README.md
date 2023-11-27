@@ -171,7 +171,24 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 </details>
 
 ----
-5. Устанавливаю Zabbix-server. Как писал в начале, пришлось подключаться с Bastion через SSH и устанавливать по инструкции с сайта Zabbix, включая создание базы mysql.
+5. Устанавливаю Zabbix-server. Как писал в начале, пришлось подключаться с Bastion через SSH и устанавливать по инструкции с сайта Zabbix, включая создание базы mysql. Zabbix-server доступен по внешнему адресу http://158.160.48.205/zabbix.
+
+<details>
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/bbd97ca4-2497-4be9-9d0f-a94a7cbc539a)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/4290758c-b63e-4a18-85b4-572696c35f86)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/602a5348-e805-40f9-bdd4-a59923e46242)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/bc6d6b59-a738-4694-885f-a8baf84f4ec0)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/a65fa419-ef57-4287-b836-5d2e440688b2)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/7d085dce-a335-4be6-b694-04143ce53d07)
+
+</details>
+
 
 
 
