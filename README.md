@@ -159,3 +159,21 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 </details>
 
+----
+4. Устанавливаю на эти же машины сразу Filebeat и Zabbix-agent.
+
+<details>
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/14625dda-e291-46c4-8e19-3d0a91abb1b1)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/0c7cce52-5809-45a7-b0a1-d94fa998ec26)
+
+</details>
+
+----
+5. Устанавливаю Zabbix-server. Как писал в начале, пришлось подключаться с Bastion через SSH и устанавливать по инструкции с сайта Zabbix.
+
+
+
+
+
