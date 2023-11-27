@@ -189,8 +189,32 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 </details>
 
+----
+6. Устанавливаю Elasticserch и проверяю запросом curl `localhost:9200/_cluster/health?pretty`.
 
+<details>
 
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/43e03981-004d-422a-9486-ab1a70404fce)
 
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/e5c7b29e-7b4b-4b13-b493-c25569831ed3)
+
+</details>
+
+----
+7. Устанавливаю Kibana и проверяю http://158.160.118.169:5601/app/dev_tools#/console.
+
+<details>
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/b6cac7d0-5069-4f7b-b5ab-1cfb921325a8)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/c3ac2e76-fdd5-41e2-b844-ab733bc45cf5)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/250e4d43-c4f5-4f86-9e1c-a55d26ae2df5)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/1fd1f959-e679-40b0-9940-63a4616d237e)
+
+</details>
+
+----
 
 
