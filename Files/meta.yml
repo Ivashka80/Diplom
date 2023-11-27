@@ -5,5 +5,5 @@ users:
   shell: /bin/bash
   sudo: ['ALL=(ALL) NOPASSWD:ALL']
   ssh-authorized-keys:
-    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCaZ8vdE2dqJCar2N2ECxsGaqcS2fKXC51EZtMAuPkopD6UoM9hKtBjZuwiJwcJ01fburqbCa2NjAA/16eZM0qDzS02y/pBRZ7cpnVbV4AeeySkJmeAxuwvYerzdP+r+rFSGbkpIbbu7jcEvV3VRSfpfDHdSCoiB+7pXg4mg2UuF0w+K39QK7ONQsQse47SXQGqYmJNxpc91ZiJkYgpGCCm7pCp/jBPYIKl+lb/PxpFuhasCnyJKB/d9cBt/U6tW8Px0Tu3Yy0VG9gBBByWSzYvnxLtFIJaWktqO9X3d3ItClmxtZpQha9yOv/+8zgeClX5pYQAPkXi0+I8TX8OcIPeEtal3q6DSUUcEmtPvfW5dm53fMSBCXk2tGXQq5G+SE5CvRkpyQd+LM5X0uJ9874Bhaj5/Q5mR1cxzJZ3KG1T/IqIdnloUII3nlFnQG6gQSbrhnqxLUAswFjMBlx0SiQ99DGPuLVPQSdnUoYbfNWybRcnBC737MkY1a4UGCQs8Jc= chistov@bastion
+    - ssh-rsa AAAAB3Nz...... = chistov@bastion
 
