@@ -177,6 +177,8 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ![image](https://github.com/Ivashka80/Diplom/assets/121082757/bbd97ca4-2497-4be9-9d0f-a94a7cbc539a)
 
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/156f8758-e99c-469e-a1c6-7fc0a8ef7e01)
+
 ![image](https://github.com/Ivashka80/Diplom/assets/121082757/4290758c-b63e-4a18-85b4-572696c35f86)
 
 ![image](https://github.com/Ivashka80/Diplom/assets/121082757/602a5348-e805-40f9-bdd4-a59923e46242)
