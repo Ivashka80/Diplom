@@ -226,19 +226,35 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 </details>
 
 ----
-9. Редактирую группы безопасности для всех ВМ.
+9. Редактирую группы безопасности для некоторых ВМ.
 
 *Bastion*
 
 <details>
-   
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/fc847980-39e9-4404-ad20-5fcba33d52cf)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/624328ed-326c-41e6-b0c9-fcd2eabd9247)
 
 </details>
 
 *Nginx*
 
 <details>
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/b437831d-8cea-4e61-bd19-a9d503e3d6e9)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/1e3ae64f-b867-4d10-82f1-f8be6320b9c6)
+
+</details>
+
+*Балансировшик*
+
+<details>
    
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/fb9c47a8-b1c0-462d-a703-11105eb45ba5)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/9f1398e6-6d47-426c-be16-c151b01afa48)
 
 </details>
 
@@ -246,6 +262,9 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 <details>
    
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/bb17631c-ad9d-40d0-a106-5060205ff90e)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/d20d25d5-b8ef-42ed-93cc-4a3299b4c9be)
 
 </details>
 
@@ -253,14 +272,22 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 <details>
    
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/d788e0a6-f58f-4128-8c3a-c9e9ef8174aa)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/407f5df6-a8c6-4f2a-8781-d19649e35b96)
 
 </details>
 
 *Kibana*
 
 <details>
-   
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/f6de97de-e047-418f-bb3f-a119b78204b3)
+
+![image](https://github.com/Ivashka80/Diplom/assets/121082757/ab68fe8a-684f-4f58-9c82-1ab51ff61abe)
 
 </details>
 
+-----
+На это всё.
 
